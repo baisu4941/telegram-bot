@@ -1,0 +1,152 @@
+START
+ |
+ v
+Open GitHub Repository
+ |
+ v
+Create Codespace
+ |
+ v
+Codespace Environment Ready
+ |
+ +-----------------------+
+ | Check Python Version  |
+ +-----------------------+
+ |
+ v
+Create / Activate venv
+ |
+ v
+Install Dependencies
+ |
+ v
+Load Environment Variables
+ |
+ +----------------------+
+ | .env                 |
+ | BOT_TOKEN            |
+ | GOOGLE_CREDENTIALS   |
+ +----------------------+
+ |
+ v
+Upload Secret Files
+ |
+ +----------------------+
+ | credentials.json     |
+ +----------------------+
+ |
+ v
+Install Project Packages
+ |
+ v
+Run Pre-flight Check
+ |
+ +--------------------------+
+ | Check                    |
+ | - telegram package       |
+ | - dotenv                 |
+ | - gspread                |
+ | - google auth            |
+ +--------------------------+
+ |
+ v
+Start Bot
+ |
+ v
+Telegram API Connection
+ |
+ +-------------------------+
+ | getMe                   |
+ | setCommands             |
+ | deleteWebhook           |
+ | start polling           |
+ +-------------------------+
+ |
+ v
+BOT ONLINE
+ |
+ v
+User sends message
+ |
+ v
+Handler receives update
+ |
+ v
+Process Data
+ |
+ +--------------------------+
+ | Submit Mode?             |
+ +--------------------------+
+       |
+       | YES
+       v
+ Account Draft Workflow
+
+       |
+       v
+
+ Smart Parser
+       |
+       v
+ Extract:
+ - UID
+ - Cookie
+ - Password
+ - 2FA
+       |
+       v
+
+ Merge Draft
+       |
+       v
+
+ Check Required Fields
+
+       |
+       +----------------+
+       | Missing?       |
+       +----------------+
+             |
+        YES  |  NO
+             |
+             v
+       Save Draft
+             |
+             v
+       Ask Missing Data
+             |
+             |
+             v
+       Wait Next Message
+
+
+             NO
+             |
+             v
+
+       Validate Data
+             |
+             v
+
+       Save Queue
+             |
+       +----------------+
+       | SQLite         |
+       | Google Sheets  |
+       +----------------+
+             |
+             v
+
+       Success Message
+             |
+             v
+
+       Clear Draft
+             |
+             v
+
+       Keep Submit Mode
+             |
+             v
+
+       Receive Next Account
