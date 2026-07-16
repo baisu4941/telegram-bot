@@ -1,152 +1,27 @@
-START
- |
- v
-Open GitHub Repository
- |
- v
-Create Codespace
- |
- v
-Codespace Environment Ready
- |
- +-----------------------+
- | Check Python Version  |
- +-----------------------+
- |
- v
-Create / Activate venv
- |
- v
-Install Dependencies
- |
- v
-Load Environment Variables
- |
- +----------------------+
- | .env                 |
- | BOT_TOKEN            |
- | GOOGLE_CREDENTIALS   |
- +----------------------+
- |
- v
-Upload Secret Files
- |
- +----------------------+
- | credentials.json     |
- +----------------------+
- |
- v
-Install Project Packages
- |
- v
-Run Pre-flight Check
- |
- +--------------------------+
- | Check                    |
- | - telegram package       |
- | - dotenv                 |
- | - gspread                |
- | - google auth            |
- +--------------------------+
- |
- v
-Start Bot
- |
- v
-Telegram API Connection
- |
- +-------------------------+
- | getMe                   |
- | setCommands             |
- | deleteWebhook           |
- | start polling           |
- +-------------------------+
- |
- v
-BOT ONLINE
- |
- v
-User sends message
- |
- v
-Handler receives update
- |
- v
-Process Data
- |
- +--------------------------+
- | Submit Mode?             |
- +--------------------------+
-       |
-       | YES
-       v
- Account Draft Workflow
+name: Telegram Bot Test
 
-       |
-       v
+on:
+  push:
+    branches:
+      - main
 
- Smart Parser
-       |
-       v
- Extract:
- - UID
- - Cookie
- - Password
- - 2FA
-       |
-       v
+jobs:
+  test:
+    runs-on: ubuntu-latest
 
- Merge Draft
-       |
-       v
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
- Check Required Fields
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-       |
-       +----------------+
-       | Missing?       |
-       +----------------+
-             |
-        YES  |  NO
-             |
-             v
-       Save Draft
-             |
-             v
-       Ask Missing Data
-             |
-             |
-             v
-       Wait Next Message
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
 
-
-             NO
-             |
-             v
-
-       Validate Data
-             |
-             v
-
-       Save Queue
-             |
-       +----------------+
-       | SQLite         |
-       | Google Sheets  |
-       +----------------+
-             |
-             v
-
-       Success Message
-             |
-             v
-
-       Clear Draft
-             |
-             v
-
-       Keep Submit Mode
-             |
-             v
-
-       Receive Next Account
+      - name: Check syntax
+        run: |
+          python -m compileall .
